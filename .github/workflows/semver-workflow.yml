@@ -19,6 +19,9 @@ jobs:
         id: find-tag
         run: echo "::set-output name=tag::$(git describe --tags --abbrev=0)"
 
+      - name: Install semver
+        run: npm install -g semver
+
       - name: Determine version bump
         id: version-bump
         run: |
@@ -30,9 +33,6 @@ jobs:
           else
             semver bump patch > version.txt
           fi
-
-      - name: Install semver
-        run: npm install -g semver
 
       - name: Create tag
         if: success()
