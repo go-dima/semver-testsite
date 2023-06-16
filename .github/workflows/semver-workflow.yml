@@ -26,14 +26,15 @@ jobs:
       - name: Determine version bump
         id: version-bump
         run: |
-          message=$(git log --format=%B -n 1 2>/dev/null || echo "initial")
-          if [[ $message == major* ]]; then
-            semver bump major > version.txt
-          elif [[ $message == minor* ]]; then
-            semver bump minor > version.txt
-          else
-            semver bump patch > version.txt
-          fi
+          semver bump patch > version.txt
+#          message=$(git log --format=%B -n 1 2>/dev/null || echo "initial")
+#          if [[ $message == major* ]]; then
+#            semver bump major > version.txt
+#          elif [[ $message == minor* ]]; then
+#            semver bump minor > version.txt
+#          else
+#            semver bump patch > version.txt
+#          fi
 
       - name: Create tag
         if: success()
