@@ -17,14 +17,13 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 5
 
       - name: Determine version bump
         id: version_bump
         run: |
-          git fetch --all --tags
-          git describe --tags --abbrev=0
-          tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          echo $tag
+          tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
           message=$(git log --format=%B -n 1 2>/dev/null || echo "empty")
           
           default_bump="patch"
@@ -35,7 +34,6 @@ jobs:
           fi
           
           new_version=$(semver -i ${default_bump} ${tag})
-          echo $new_version
           echo "NEW_VERSION=${new_version}" >> $GITHUB_OUTPUT
 
       - name: Create tag
