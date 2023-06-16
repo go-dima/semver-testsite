@@ -26,7 +26,8 @@ jobs:
       - name: Determine version bump
         id: version-bump
         run: |
-          npm run semver bump patch > version.txt
+          tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
+          semver -i patch ${tag}
 #          message=$(git log --format=%B -n 1 2>/dev/null || echo "initial")
 #          if [[ $message == major* ]]; then
 #            semver bump major > version.txt
