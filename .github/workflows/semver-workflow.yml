@@ -12,19 +12,14 @@ jobs:
   version-bump:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Find latest version tag
-        run: |
-          tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          echo "{name}={$tag}" >> $GITHUB_OUTPUT
-
       - name: Install semver
         run: npm install -g semver
 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Determine version bump
-        id: version-bump
+        id: version_bump
         run: |
           tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
           message=$(git log --format=%B -n 1 2>/dev/null || echo "empty")
