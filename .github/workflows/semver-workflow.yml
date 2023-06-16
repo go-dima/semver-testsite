@@ -27,15 +27,16 @@ jobs:
         id: version-bump
         run: |
           tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          semver -i patch ${tag} >> version.txt
-#          message=$(git log --format=%B -n 1 2>/dev/null || echo "initial")
-#          if [[ $message == major* ]]; then
-#            semver bump major > version.txt
-#          elif [[ $message == minor* ]]; then
-#            semver bump minor > version.txt
-#          else
-#            semver bump patch > version.txt
-#          fi
+          message=$(git log --format=%B -n 1 2>/dev/null || echo "empty")
+          
+          default_bump="patch"
+          if [[ $message == major:* ]]; then
+            default_bump="major"
+          elif [[ $message == minor:* ]]; then
+            default_bump="minor"
+          fi
+          
+          semver -i ${default_bump} ${tag} >> version.txt
 
       - name: Create tag
         if: success()
