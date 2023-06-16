@@ -27,7 +27,7 @@ jobs:
         id: version-bump
         run: |
           tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          semver -i patch ${tag}
+          semver -i patch ${tag} >> version.txt
 #          message=$(git log --format=%B -n 1 2>/dev/null || echo "initial")
 #          if [[ $message == major* ]]; then
 #            semver bump major > version.txt
