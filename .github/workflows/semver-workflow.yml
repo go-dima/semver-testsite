@@ -23,7 +23,6 @@ jobs:
       - name: Determine version bump
         id: version_bump
         run: |
-          git describe --tags
           git fetch --tags --all
           git describe --tags
           tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v1.0.0")
