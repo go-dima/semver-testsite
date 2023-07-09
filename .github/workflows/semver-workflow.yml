@@ -7,9 +7,12 @@ on:
   pull_request:
     branches:
       - main
+    types:
+      - closed
 
 jobs:
   version-bump:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Install semver
