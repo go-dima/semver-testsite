@@ -4,4 +4,4 @@
 
 ### Major
 
-Psuh to bump patch
+Push to bump patch
