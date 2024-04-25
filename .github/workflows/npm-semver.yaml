@@ -8,7 +8,7 @@ on:
       - main-npm
   push:
     branches:
-      - main-main
+      - main-npm
 
 jobs:
   version-bump:
